@@ -3,3 +3,5 @@ flask_sqlalchemy
 flask_migrate
 flask-login
 requests
+flask-wtf
+email_validator

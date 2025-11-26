@@ -15,7 +15,20 @@
         <div class="col colstyle">
             <form action="" method="post" novalidate>
                 {{ form.hidden_tag() }}
+                <!--Name-->
                 <div class="form-group">
+                    <h4>{{ form.name.label(class="form-control-label") }}</h4>
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback" style="display: block;">
+                            {% for error in form.name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.name(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
                 <!--Email-->
                 <div class="form-group">
                     <h4>{{ form.email.label(class="form-control-label") }}</h4>
@@ -41,7 +54,20 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    </div>
+                </div>
+
+                <!--Confirm Password Field-->
+                <div class="form-group">
+                    <h4>{{ form.password2.label(class="form-control-label") }}</h4>
+                    {{ form.password2(class="form-control form-control-lg", id="password2") }}
+                    {% if form.password2.errors %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {% for error in form.password2.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
                 <!--Registration Button-->
                 <button class="registerbtn">
                     {{ form.submit() }}

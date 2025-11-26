@@ -1,10 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
-from app import db
+from extenstions import db
 from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
+from wtforms.validators import ValidationError
 
 #User Table
 class User(db.Model):
@@ -21,13 +22,21 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
     
+    
     def __repr__(self):
         return f"User('{self.name}','{self.email}','{self.id}')"
+    
+    # Checks if Email Already Exists
+def validate_email(self, email):
+    user = db.session.scalar(sa.select(User).where(
+        User.email  == email.data))
+    if user is not None:
+        raise ValidationError('This email is already registered. Please login')
     
 #Pain Table
 class Pain(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("users.id"), nullable=False)
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
     date: so.Mapped[datetime.date] = so.mapped_column(sa.Date, default=datetime.date.today)
     neck: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
     shoulders: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
@@ -46,7 +55,7 @@ class Pain(db.Model):
 
 class Symptoms(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("users.id"), nullable=False)
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
     date: so.Mapped[datetime.date] = so.mapped_column(sa.Date, default=datetime.date.today)
     fatigue: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
     stiffness: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
@@ -66,7 +75,7 @@ class Symptoms(db.Model):
 
 class Activity(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("users.id"), nullable=False)
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
     date: so.Mapped[datetime.date] = so.mapped_column(sa.Date, default=datetime.date.today)
     shower: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
     cooking: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
