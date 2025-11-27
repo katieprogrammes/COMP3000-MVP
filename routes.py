@@ -1,15 +1,19 @@
 import os
 from flask import render_template, Blueprint, url_for, current_app, redirect, flash
+from flask_login import current_user, login_user
 from models import User
-from forms import RegistrationForm
-from extenstions import db
+from forms import RegistrationForm, LoginForm
+from extenstions import db, login_manager
+import sqlalchemy as sa
 
 bp = Blueprint("routes", __name__)
 
+@login_manager.user_loader
+def load_user(user_id: str):
+    return User.query.get(int(user_id))
 
 
-
-#HOME PAGE
+#REGISTRATION PAGE
 @bp.route ('/', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -39,6 +43,35 @@ def register():
             flash('Congratulations, you are now a registered user!', 'success')
         
     return render_template('register.html', title='Register', form=form)
+
+@bp.route ('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('routes.placeholder'))
+    form = LoginForm()
+
+    # Check if User Credentials are Entered Correctly
+    if form.validate_on_submit():
+        user = db.session.scalar(
+            sa.select(User).where(User.email == form.email.data))
+        
+    # Incorrect Entry
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password', 'error')
+            return redirect(url_for('routes.login'))
+        login_user(user, remember=form.remember_me.data)
+        
+        #Correct Entry
+        flash('You are logged in!', 'success')
+        return redirect(url_for('routes.placeholder'))
+
+    return render_template('login.html', title='Login', form=form)
+
+
+
+
+
+
 
 
 #PLACEHOLDER ROUTE
