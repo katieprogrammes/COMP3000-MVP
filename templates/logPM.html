@@ -1,0 +1,360 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="row">
+    <h1 class="title">Logging - Evening</h1>
+    <form method="POST">
+        {{ form1.hidden_tag() }}
+        <div class="mb-3">
+            <h5>{{form1.date.label (class="form-label")}} {{form1.date(class="form-control")}}</h5>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                <h5><label class="form-label">{{ form1.neck.label }}</label></h5>
+                    {% for subfield in form1.neck %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form1.shoulders.label }}</label></h5>
+                    {% for subfield in form1.shoulders %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form1.upperback.label }}</label></h5>
+                    {% for subfield in form1.upperback %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form1.lowerback.label }}</label></h5>
+                    {% for subfield in form1.lowerback %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form1.chest.label }}</label></h5>
+                    {% for subfield in form1.chest %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form1.hips.label }}</label></h5>
+                    {% for subfield in form1.hips %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form1.arms.label }}</label></h5>
+                    {% for subfield in form1.arms %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form1.elbows.label }}</label></h5>
+                    {% for subfield in form1.elbows %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form1.legs.label }}</label></h5>
+                    {% for subfield in form1.legs %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form1.knees.label }}</label></h5>
+                    {% for subfield in form1.knees %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form1.overall.label }}</label></h5>
+                    {% for subfield in form1.overall %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!--Symptom Form-->
+            <div class="col">
+            {{ form2.hidden_tag() }}
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.fatigue.label }}</label></h5>
+                    {% for subfield in form2.fatigue %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.stiffness.label }}</label></h5>
+                    {% for subfield in form2.stiffness %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.sleepquality.label }}</label></h5>
+                    {% for subfield in form2.sleepquality %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.fibrofog.label }}</label></h5>
+                    {% for subfield in form2.fibrofog %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.headaches.label }}</label></h5>
+                    {% for subfield in form2.headaches %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.ibs.label }}</label></h5>
+                    {% for subfield in form2.ibs %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.dizziness.label }}</label></h5>
+                    {% for subfield in form2.dizziness %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.bodytemp.label }}</label></h5>
+                    {% for subfield in form2.bodytemp %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.paraesthesia.label }}</label></h5>
+                    {% for subfield in form2.paraesthesia %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.allodynia.label }}</label></h5>
+                    {% for subfield in form2.allodynia %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.lightsens.label }}</label></h5>
+                    {% for subfield in form2.lightsens %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.depression.label }}</label></h5>
+                    {% for subfield in form2.depression %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form2.anxiety.label }}</label></h5>
+                    {% for subfield in form2.anxiety %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
