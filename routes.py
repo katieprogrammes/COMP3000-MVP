@@ -2,7 +2,7 @@ import os
 from flask import render_template, Blueprint, url_for, current_app, redirect, flash
 from flask_login import current_user, login_user
 from models import User
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, PainForm
 from extenstions import db, login_manager
 import sqlalchemy as sa
 
@@ -67,6 +67,10 @@ def login():
 
     return render_template('login.html', title='Login', form=form)
 
+@bp.route ('/logging', methods=['GET', 'POST'])
+def logging():
+    form = PainForm()
+    return render_template('logging.html', title='Loggging', form=form)
 
 
 
