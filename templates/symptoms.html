@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="row">
+    <h1 class="title">Symptoms</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            <h5>{{form.date.label (class="form-label")}} {{form.date(class="form-control")}}</h5>
+        </div>
+
+
+
+
+    </form>
+</div>
+{% endblock %}

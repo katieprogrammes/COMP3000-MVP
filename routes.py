@@ -2,7 +2,7 @@ import os
 from flask import render_template, Blueprint, url_for, current_app, redirect, flash
 from flask_login import current_user, login_user, login_required
 from models import User, Pain
-from forms import RegistrationForm, LoginForm, PainForm
+from forms import RegistrationForm, LoginForm, PainForm, SymptomsForm
 from extenstions import db, login_manager
 import sqlalchemy as sa
 
@@ -68,6 +68,7 @@ def login():
     return render_template('login.html', title='Login', form=form)
 
 @bp.route ('/pain', methods=['GET', 'POST'])
+@login_required
 def pain():
     form = PainForm()
     if form.validate_on_submit():
@@ -94,7 +95,15 @@ def pain():
 
         flash('Pain record saved successfully', 'success')
         return redirect(url_for("routes.placeholder"))
-    return render_template('pain.html', title='Loggging', form=form)
+    return render_template('pain.html', title='Pain', form=form)
+
+@bp.route ('/symptoms', methods=['GET', 'POST'])
+@login_required
+def symptoms():
+    form = SymptomsForm()
+    
+
+    return render_template('symptoms.html', title='Symptoms', form=form)
 
 
 
