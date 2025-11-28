@@ -1,7 +1,7 @@
 import os
 from flask import render_template, Blueprint, url_for, current_app, redirect, flash
-from flask_login import current_user, login_user
-from models import User
+from flask_login import current_user, login_user, login_required
+from models import User, Pain
 from forms import RegistrationForm, LoginForm, PainForm
 from extenstions import db, login_manager
 import sqlalchemy as sa
@@ -67,10 +67,34 @@ def login():
 
     return render_template('login.html', title='Login', form=form)
 
-@bp.route ('/logging', methods=['GET', 'POST'])
-def logging():
+@bp.route ('/pain', methods=['GET', 'POST'])
+def pain():
     form = PainForm()
-    return render_template('logging.html', title='Loggging', form=form)
+    if form.validate_on_submit():
+        #Adding a New Pain Record
+        pain_entry = Pain(
+            user_id = current_user.id,
+            date=form.date.data,
+            neck=int(form.neck.data),
+            shoulders=int(form.shoulders.data),
+            upperback=int(form.upperback.data),
+            lowerback=int(form.lowerback.data),
+            chest=int(form.chest.data),
+            hips=int(form.hips.data),
+            arms=int(form.arms.data),
+            elbows=int(form.elbows.data),
+            legs=int(form.legs.data),
+            knees=int(form.knees.data),
+            overall=int(form.overall.data),
+        )
+
+        # Saving Log to Database
+        db.session.add(pain_entry)
+        db.session.commit()
+
+        flash('Pain record saved successfully', 'success')
+        return redirect(url_for("routes.placeholder"))
+    return render_template('pain.html', title='Loggging', form=form)
 
 
 
