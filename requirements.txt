@@ -5,3 +5,4 @@ flask-login
 requests
 flask-wtf
 email_validator
+flask-bcrypt

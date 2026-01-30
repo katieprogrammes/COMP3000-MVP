@@ -1,7 +1,7 @@
 import os
 from flask import render_template, Blueprint, url_for, current_app, redirect, flash, request
 from flask_login import current_user, login_user, login_required
-from models import User, PainAM, SymptomsAM, PainPM, SymptomsPM, Activity
+from models import User, PainAM, SymptomsAM, PainPM, SymptomsPM, Activity, InitialActivity
 from forms import RegistrationForm, LoginForm, PainForm, SymptomsForm, InitialActivityForm, ActivityForm
 from extenstions import db, login_manager
 import sqlalchemy as sa
@@ -27,12 +27,6 @@ def register():
         existing_user = User.query.filter_by(email=form.email.data).first()
         if existing_user:
             flash('Email is already in use. Please choose a different one.', 'error')
-     # Add User to Table
-    if form.validate_on_submit():
-        # Check if Email is Already in Use
-        existing_user = User.query.filter_by(email=form.email.data).first()
-        if existing_user:
-            flash('Email is already in use. Please choose a different one.', 'error')
 
         # Check if Passwords Match
         elif form.password.data != form.password2.data:
@@ -44,17 +38,19 @@ def register():
             user.set_password(form.password.data)
             db.session.add(user)
             db.session.commit()
+            login_user(user)
             return redirect(url_for('routes.reginit'))
         
     return render_template('register.html', title='Register', form=form)
 
 @bp.route('/reginit', methods=['GET', 'POST'])
+@login_required
 def reginit():
     form = InitialActivityForm()
 
     if form.validate_on_submit():
         # Validation
-        initact = Activity(
+        initact = InitialActivity(
             user_id=current_user.id,
             shower=int(form.shower.data),
             cooking=int(form.cooking.data),
@@ -80,27 +76,19 @@ def reginit():
     return render_template('reginfo.html', title='Register', form=form)
 
 
-@bp.route ('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('routes.placeholder'))
-    form = LoginForm()
-
-    # Check if User Credentials are Entered Correctly
-    if form.validate_on_submit():
-        user = db.session.scalar(
-            sa.select(User).where(User.email == form.email.data))
-        
-    # Incorrect Entry
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password', 'error')
-            return redirect(url_for('routes.login'))
-        login_user(user, remember=form.remember_me.data)
-        
-        #Correct Entry
-        flash('You are logged in!', 'success')
-        return redirect(url_for('routes.home'))
-
+@bp.route('/login', methods=['GET', 'POST']) 
+def login(): 
+    if current_user.is_authenticated: 
+        return redirect(url_for('routes.home')) 
+    form = LoginForm() 
+    if form.validate_on_submit(): 
+        user = db.session.scalar(sa.select(User).where(User.email == form.email.data)) 
+        if user is None or not user.check_password(form.password.data): 
+            flash('Invalid username or password', 'error') 
+            return redirect(url_for('routes.login')) 
+        login_user(user, remember=form.remember_me.data) 
+        flash('You are logged in!', 'success') 
+        return redirect(url_for('routes.home')) 
     return render_template('login.html', title='Login', form=form)
 
 
@@ -231,7 +219,8 @@ def symptoms():
 
 
 #DAILY ACTIVITY ROUTE
-@bp.route ('/activity')
+@bp.route('/activity', methods=['GET', 'POST']) 
+@login_required 
 def activities():
     form = ActivityForm()
     if request.method == "POST":
