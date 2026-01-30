@@ -1,8 +1,8 @@
 import os
 from flask import render_template, Blueprint, url_for, current_app, redirect, flash, request
 from flask_login import current_user, login_user, login_required
-from models import User, PainAM, SymptomsAM, PainPM, SymptomsPM
-from forms import RegistrationForm, LoginForm, PainForm, SymptomsForm
+from models import User, PainAM, SymptomsAM, PainPM, SymptomsPM, Activity
+from forms import RegistrationForm, LoginForm, PainForm, SymptomsForm, InitialActivityForm, ActivityForm
 from extenstions import db, login_manager
 import sqlalchemy as sa
 
@@ -12,9 +12,13 @@ bp = Blueprint("routes", __name__)
 def load_user(user_id: str):
     return User.query.get(int(user_id))
 
+#HOME
+@bp.route ('/')
+def home():
+    return render_template('home.html', title='Home')
 
 #REGISTRATION PAGE
-@bp.route ('/', methods=['GET', 'POST'])
+@bp.route ('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     # Add User to Table
@@ -22,17 +26,17 @@ def register():
         # Check if Email is Already in Use
         existing_user = User.query.filter_by(email=form.email.data).first()
         if existing_user:
-            flash('Email is already in use. Please choose a different one.', 'custom-error')
+            flash('Email is already in use. Please choose a different one.', 'error')
      # Add User to Table
     if form.validate_on_submit():
         # Check if Email is Already in Use
         existing_user = User.query.filter_by(email=form.email.data).first()
         if existing_user:
-            flash('Email is already in use. Please choose a different one.', 'custom-error')
+            flash('Email is already in use. Please choose a different one.', 'error')
 
         # Check if Passwords Match
         elif form.password.data != form.password2.data:
-            flash('Passwords do not match. Please try again.', 'custom-error')
+            flash('Passwords do not match. Please try again.', 'error')
 
         else:
             # Add User to Table
@@ -40,9 +44,41 @@ def register():
             user.set_password(form.password.data)
             db.session.add(user)
             db.session.commit()
-            flash('Congratulations, you are now a registered user!', 'success')
+            return redirect(url_for('routes.reginit'))
         
     return render_template('register.html', title='Register', form=form)
+
+@bp.route('/reginit', methods=['GET', 'POST'])
+def reginit():
+    form = InitialActivityForm()
+
+    if form.validate_on_submit():
+        # Validation
+        initact = Activity(
+            user_id=current_user.id,
+            shower=int(form.shower.data),
+            cooking=int(form.cooking.data),
+            laundry=int(form.laundry.data),
+            vacuuming=int(form.vacuuming.data),
+            cleaning=int(form.cleaning.data),
+            groceries=int(form.groceries.data),
+            walking=int(form.walking.data),
+            driving=int(form.driving.data),
+            exercise=int(form.exercise.data),
+            studying=int(form.studying.data),
+            resting=int(form.resting.data),
+            socialising=int(form.socialising.data),
+            outing=int(form.outing.data),
+        )
+
+        # Saving Log to Database
+        db.session.add(initact)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!', 'success')
+        return redirect(url_for('routes.home'))
+
+    return render_template('reginfo.html', title='Register', form=form)
+
 
 @bp.route ('/login', methods=['GET', 'POST'])
 def login():
@@ -63,12 +99,14 @@ def login():
         
         #Correct Entry
         flash('You are logged in!', 'success')
-        return redirect(url_for('routes.placeholder'))
+        return redirect(url_for('routes.home'))
 
     return render_template('login.html', title='Login', form=form)
 
+
+
 @bp.route ('/logAM', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def logAM():
     form1 = PainForm()
     form2 = SymptomsForm()
@@ -121,7 +159,7 @@ def logAM():
             db.session.commit()
 
         flash('Pain record saved successfully', 'success')
-        return redirect(url_for("routes.placeholder"))
+        return redirect(url_for("routes.home"))
     return render_template('logAM.html', title='Morning Log', form1=form1, form2=form2)
 
 @bp.route ('/logPM', methods=['GET', 'POST'])
@@ -178,13 +216,13 @@ def logPM():
             db.session.commit()
 
         flash('Pain record saved successfully', 'success')
-        return redirect(url_for("routes.placeholder"))
+        return redirect(url_for("routes.home"))
     return render_template('logPM.html', title='Evening Log', form1=form1, form2=form2)
 
 @bp.route ('/symptoms', methods=['GET', 'POST'])
 @login_required
 def symptoms():
-    
+    form = SymptomsForm()
     
 
     return render_template('symptoms.html', title='Symptoms', form=form)
@@ -192,7 +230,41 @@ def symptoms():
 
 
 
+#DAILY ACTIVITY ROUTE
+@bp.route ('/activity')
+def activities():
+    form = ActivityForm()
+    if request.method == "POST":
+        #Validation
+        activity_valid = form.validate()
+        if activity_valid:
+        #Adding a New Activity Record
+            activity_entry = Activity(
+                user_id = current_user.id,
+                date=form.date.data,
+                shower=int(form.shower.data),
+                cooking=int(form.cooking.data),
+                laundry=int(form.laundry.data),
+                vacuuming=int(form.vacuuming.data),
+                cleaning=int(form.cleaning.data),
+                groceries=int(form.groceries.data),
+                walking=int(form.walking.data),
+                driving=int(form.driving.data),
+                exercise=int(form.exercise.data),
+                studying=int(form.studying.data),
+                resting=int(form.resting.data),
+                socialising=int(form.socialising.data),
+                outing=int(form.outing.data),
+            )
+            # Saving Pain Log to Database
+            db.session.add(activity_entry)
+            
+            #Saving Database Changes
+            db.session.commit()
 
+            flash('Activity record saved successfully', 'success')
+        return redirect(url_for("routes.home"))
+    return render_template('activity.html', title='Activities', form=form)
 
 
 #PLACEHOLDER ROUTE

@@ -119,7 +119,27 @@ class Activity(db.Model):
     shower: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False) 
     cooking: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)
     laundry: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False) 
-    hoovering: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)
+    vacuuming: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)
+    cleaning: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)
+    groceries: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False) 
+    walking: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    driving: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    exercise: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True) 
+    studying: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    resting: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    socialising: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    outing: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    #Add more here
+
+    #Place relationships of tables here
+
+class InitialActivity(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
+    shower: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False) 
+    cooking: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)
+    laundry: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False) 
+    vacuuming: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)
     cleaning: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)
     groceries: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False) 
     walking: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
