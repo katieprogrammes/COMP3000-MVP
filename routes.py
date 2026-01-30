@@ -1,7 +1,7 @@
 import os
 from flask import render_template, Blueprint, url_for, current_app, redirect, flash, request
 from flask_login import current_user, login_user, login_required
-from models import User, PainAM, SymptomsAM, PainPM, SymptomsPM, Activity, InitialActivity
+from models import User, PainAM, SymptomsAM, PainPM, SymptomsPM, Activity, InitialActivity, DailyRecommendation
 from forms import RegistrationForm, LoginForm, PainForm, SymptomsForm, InitialActivityForm, ActivityForm
 from extenstions import db, login_manager
 import sqlalchemy as sa

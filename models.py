@@ -7,6 +7,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 from wtforms.validators import ValidationError
+from sqlalchemy.dialects.sqlite import JSON
 
 #User Table
 class User(db.Model, UserMixin):
@@ -28,28 +29,36 @@ class User(db.Model, UserMixin):
         return f"User('{self.name}','{self.email}','{self.id}')"
     
     # Checks if Email Already Exists
-def validate_email(self, email):
-    user = db.session.scalar(sa.select(User).where(
-        User.email  == email.data))
-    if user is not None:
-        raise ValidationError('This email is already registered. Please login')
+    def validate_email(self, email):
+        user = db.session.scalar(sa.select(User).where(
+            User.email  == email.data))
+        if user is not None:
+            raise ValidationError('This email is already registered. Please login')
     
+    #Relationships
+    pain_am = so.relationship("PainAM", backref="user", lazy="dynamic") 
+    pain_pm = so.relationship("PainPM", backref="user", lazy="dynamic") 
+    symptoms_am = so.relationship("SymptomsAM", backref="user", lazy="dynamic") 
+    symptoms_pm = so.relationship("SymptomsPM", backref="user", lazy="dynamic") 
+    activities = so.relationship("Activity", backref="user", lazy="dynamic") 
+    initial_activity = so.relationship("InitialActivity", backref="user", uselist=False)
+
 #Pain Table
 class PainAM(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
     date: so.Mapped[datetime.date] = so.mapped_column(sa.Date, default=datetime.date.today)
-    neck: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    shoulders: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    upperback: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    lowerback: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    chest: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    hips: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    arms: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    elbows: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    legs: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    knees: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    overall: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    neck: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    shoulders: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    upperback: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    lowerback: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    chest: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    hips: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    arms: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    elbows: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    legs: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    knees: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    overall: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
 
     #Place relationships of tables here
 
@@ -57,17 +66,17 @@ class PainPM(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
     date: so.Mapped[datetime.date] = so.mapped_column(sa.Date, default=datetime.date.today)
-    neck: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    shoulders: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    upperback: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    lowerback: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    chest: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    hips: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    arms: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    elbows: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    legs: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    knees: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    overall: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    neck: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    shoulders: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    upperback: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    lowerback: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    chest: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    hips: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    arms: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    elbows: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    legs: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    knees: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    overall: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
 
     #Place relationships of tables here
 
@@ -76,19 +85,19 @@ class SymptomsAM(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
     date: so.Mapped[datetime.date] = so.mapped_column(sa.Date, default=datetime.date.today)
-    fatigue: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    stiffness: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    sleepquality: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    fibrofog: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    headache: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    ibs: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    dizziness: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    bodytemp: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    paraesthesia: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    allodynia: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    lightsens: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    depression: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    anxiety: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    fatigue: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    stiffness: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    sleepquality: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    fibrofog: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    headache: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    ibs: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    dizziness: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    bodytemp: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    paraesthesia: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    allodynia: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    lightsens: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    depression: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    anxiety: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
 
     #Place relationships of tables here
 
@@ -96,19 +105,19 @@ class SymptomsPM(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
     date: so.Mapped[datetime.date] = so.mapped_column(sa.Date, default=datetime.date.today)
-    fatigue: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    stiffness: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    sleepquality: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    fibrofog: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    headache: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    ibs: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    dizziness: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    bodytemp: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    paraesthesia: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    allodynia: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    lightsens: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    depression: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    anxiety: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    fatigue: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    stiffness: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    sleepquality: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    fibrofog: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    headache: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    ibs: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    dizziness: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    bodytemp: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    paraesthesia: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    allodynia: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    lightsens: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    depression: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    anxiety: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
 
     #Place relationships of tables here
 
@@ -116,19 +125,19 @@ class Activity(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
     date: so.Mapped[datetime.date] = so.mapped_column(sa.Date, default=datetime.date.today)
-    shower: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False) 
-    cooking: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False)
-    laundry: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False) 
-    vacuuming: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False)
-    cleaning: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False)
-    groceries: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False) 
-    walking: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    driving: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    exercise: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True) 
-    studying: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    resting: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    socialising: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    outing: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    shower: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False) 
+    cooking: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    laundry: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False) 
+    vacuuming: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    cleaning: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    groceries: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False) 
+    walking: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    driving: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    exercise: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False) 
+    studying: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    resting: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    socialising: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    outing: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     #Add more here
 
     #Place relationships of tables here
@@ -136,22 +145,31 @@ class Activity(db.Model):
 class InitialActivity(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
-    shower: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False) 
-    cooking: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False)
-    laundry: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False) 
-    vacuuming: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False)
-    cleaning: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False)
-    groceries: so.Mapped[bool] = so.mapped_column(sa.Integer, default=False) 
-    walking: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    driving: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    exercise: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True) 
-    studying: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    resting: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    socialising: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
-    outing: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=True)
+    shower: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False) 
+    cooking: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    laundry: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False) 
+    vacuuming: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    cleaning: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    groceries: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False) 
+    walking: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    driving: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    exercise: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False) 
+    studying: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    resting: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    socialising: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    outing: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     #Add more here
 
     #Place relationships of tables here
+
+class DailyRecommendation(db.Model): 
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
+    date: so.Mapped[datetime.date] = so.mapped_column(sa.Date, default=datetime.date.today)
+    threshold: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    allowed: so.Mapped[list] = so.mapped_column(JSON, nullable=False) 
+    avoid: so.Mapped[list] = so.mapped_column(JSON, nullable=False)
+    user: so.Mapped["User"] = so.relationship("User", backref="daily_recommendations")
 
 
 
