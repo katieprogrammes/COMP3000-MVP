@@ -403,7 +403,32 @@
                     {% endfor %}
                 </div>
             </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+            <h4 class="subheading">Any Activities that Need Prioritising Today?</h4>
+            <div class="priority">
+                
+
+                {{ form3.shower(class="btn-check", id="shower-btn") }}
+                <label class="btn btn-outline-success" for="shower-btn">Shower</label>
+
+                {{ form3.cooking(class="btn-check", id="cooking-btn") }}
+                <label class="btn btn-outline-success" for="cooking-btn">Cooking</label>
+
+                {{ form3.laundry(class="btn-check", id="laundry-btn") }}
+                <label class="btn btn-outline-success" for="laundry-btn">Laundry</label>
+
+                {{ form3.vacuuming(class="btn-check", id="vacuuming-btn") }}
+                <label class="btn btn-outline-success" for="vacuuming-btn">Vacuuming</label>
+
+                {{ form3.cleaning(class="btn-check", id="cleaning-btn") }}
+                <label class="btn btn-outline-success" for="cleaning-btn">Cleaning</label>
+
+                {{ form3.groceries(class="btn-check", id="groceries-btn") }}
+                <label class="btn btn-outline-success" for="groceries-btn">Groceries</label>
+
+                {{ form3.studying(class="btn-check", id="studying-btn") }}
+                <label class="btn btn-outline-success" for="studying-btn">Studying</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
 </div>

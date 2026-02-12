@@ -162,6 +162,18 @@ class InitialActivity(db.Model):
 
     #Place relationships of tables here
 
+class ActivityPriority(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)
+    date: so.Mapped[datetime.date] = so.mapped_column(sa.Date, default=datetime.date.today)
+    shower: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=True) 
+    cooking: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=True)
+    laundry: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=True) 
+    vacuuming: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=True)
+    cleaning: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=True)
+    groceries: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=True)
+    studying: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=True)
+
 class DailyRecommendation(db.Model): 
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey("user.id"), nullable=False)

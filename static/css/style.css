@@ -91,3 +91,14 @@
     text-align: center;
     padding-bottom: 10px;
 }
+.priority {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+
+}
+.priority label {
+    font-size: 20px;
+    font-weight: 700;
+}

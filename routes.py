@@ -1,8 +1,8 @@
 import os
 from flask import render_template, Blueprint, url_for, current_app, redirect, flash, request
 from flask_login import current_user, login_user, login_required
-from models import User, PainAM, SymptomsAM, PainPM, SymptomsPM, Activity, InitialActivity, DailyRecommendation
-from forms import RegistrationForm, LoginForm, PainForm, SymptomsForm, InitialActivityForm, ActivityForm
+from models import User, PainAM, SymptomsAM, PainPM, SymptomsPM, Activity, InitialActivity, ActivityPriority, DailyRecommendation
+from forms import RegistrationForm, LoginForm, PainForm, SymptomsForm, InitialActivityForm, ActivityForm, ActivityPriorityForm
 from extenstions import db, login_manager
 import sqlalchemy as sa
 
@@ -98,6 +98,7 @@ def login():
 def logAM():
     form1 = PainForm()
     form2 = SymptomsForm()
+    form3 = ActivityPriorityForm()
     if request.method == "POST":
         #Validation
         pain_valid = form1.validate()
@@ -140,15 +141,29 @@ def logAM():
                 depression=form2.depression.data,
                 anxiety=form2.anxiety.data
             )
-            # Saving Pain Log to Database
+            # Saving Symptom Log to Database
             db.session.add(symptom_entry)
+
+            activity_priority = ActivityPriority(
+                user_id = current_user.id,
+                date=form1.date.data,
+                shower=int(form3.shower.data),
+                cooking=int(form3.cooking.data),
+                laundry=int(form3.laundry.data),
+                vacuuming=int(form3.vacuuming.data),
+                cleaning=int(form3.cleaning.data),
+                groceries=int(form3.groceries.data),
+                studying=int(form3.studying.data)
+            )
+            #Saving Activity Priority to Database
+            db.session.add(activity_priority)
             
             #Saving Database Changes
             db.session.commit()
 
-        flash('Pain record saved successfully', 'success')
+        flash('Record saved successfully', 'success')
         return redirect(url_for("routes.home"))
-    return render_template('logAM.html', title='Morning Log', form1=form1, form2=form2)
+    return render_template('logAM.html', title='Morning Log', form1=form1, form2=form2, form3=form3)
 
 @bp.route ('/logPM', methods=['GET', 'POST'])
 @login_required

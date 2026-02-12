@@ -85,4 +85,14 @@ class ActivityForm(FlaskForm):
     outing = RadioField('Going Out (General):', choices=[('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7'), ('8', '8'), ('9', '9'), ('10', '10'),])
     submit = SubmitField('Submit')
 
+class ActivityPriorityForm(FlaskForm):
+    shower = BooleanField("Shower")
+    cooking = BooleanField("Cooking")
+    laundry = BooleanField("Laundry")
+    vacuuming = BooleanField("Vacuuming")
+    cleaning = BooleanField("Cleaning")
+    groceries = BooleanField("Food Shopping")
+    studying = BooleanField("Studying")
+    submit = SubmitField("Submit")
+
 
