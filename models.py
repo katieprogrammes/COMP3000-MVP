@@ -135,7 +135,7 @@ class Activity(db.Model):
     driving: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     exercise: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False) 
     studying: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
-    resting: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    resting: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=False)
     socialising: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     outing: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     #Add more here
@@ -155,7 +155,6 @@ class InitialActivity(db.Model):
     driving: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     exercise: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False) 
     studying: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
-    resting: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     socialising: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     outing: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     #Add more here

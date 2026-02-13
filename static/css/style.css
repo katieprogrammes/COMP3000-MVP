@@ -99,17 +99,16 @@
     text-align: center;
 }
 .paintable th,
-.paintable td {
-    border: 1px solid black;
-    width: 90px;
-    text-align: center;
-}
+.paintable td,
 .symptomtable th,
-.symptomtable td {
-    border: 1px solid black;
+.symptomtable td,
+.activitytable th,
+.activitytable td  {
+    border: 1px solid grey;
     width: 90px;
     text-align: center;
 }
+
 
 .pain-cell {
     color: #000;

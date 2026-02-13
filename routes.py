@@ -62,7 +62,6 @@ def reginit():
             driving=int(form.driving.data),
             exercise=int(form.exercise.data),
             studying=int(form.studying.data),
-            resting=int(form.resting.data),
             socialising=int(form.socialising.data),
             outing=int(form.outing.data),
         )
@@ -272,13 +271,13 @@ def logAM():
             activity_priority = ActivityPriority(
                 user_id = current_user.id,
                 date=form1.date.data,
-                shower=int(form3.shower.data),
-                cooking=int(form3.cooking.data),
-                laundry=int(form3.laundry.data),
-                vacuuming=int(form3.vacuuming.data),
-                cleaning=int(form3.cleaning.data),
-                groceries=int(form3.groceries.data),
-                studying=int(form3.studying.data)
+                shower=bool(form3.shower.data),
+                cooking=bool(form3.cooking.data),
+                laundry=bool(form3.laundry.data),
+                vacuuming=bool(form3.vacuuming.data),
+                cleaning=bool(form3.cleaning.data),
+                groceries=bool(form3.groceries.data),
+                studying=bool(form3.studying.data)
             )
             #Saving Activity Priority to Database
             db.session.add(activity_priority)
@@ -372,19 +371,19 @@ def activities():
             activity_entry = Activity(
                 user_id = current_user.id,
                 date=form.date.data,
-                shower=int(form.shower.data),
-                cooking=int(form.cooking.data),
-                laundry=int(form.laundry.data),
-                vacuuming=int(form.vacuuming.data),
-                cleaning=int(form.cleaning.data),
-                groceries=int(form.groceries.data),
-                walking=int(form.walking.data),
-                driving=int(form.driving.data),
-                exercise=int(form.exercise.data),
-                studying=int(form.studying.data),
-                resting=int(form.resting.data),
-                socialising=int(form.socialising.data),
-                outing=int(form.outing.data),
+                shower=form.shower.data,
+                cooking=form.cooking.data,
+                laundry=form.laundry.data,
+                vacuuming=form.vacuuming.data,
+                cleaning=form.cleaning.data,
+                groceries=form.groceries.data,
+                walking=form.walking.data,
+                driving=form.driving.data,
+                exercise=form.exercise.data,
+                studying=form.studying.data,
+                resting=form.resting.data,
+                socialising=form.socialising.data,
+                outing=form.outing.data
             )
             # Saving Pain Log to Database
             db.session.add(activity_entry)
