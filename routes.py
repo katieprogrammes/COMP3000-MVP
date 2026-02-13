@@ -1,6 +1,6 @@
 import os
 from flask import render_template, Blueprint, url_for, current_app, redirect, flash, request
-from flask_login import current_user, login_user, login_required
+from flask_login import current_user, login_user, login_required, logout_user
 from models import User, PainAM, SymptomsAM, PainPM, SymptomsPM, Activity, InitialActivity, ActivityPriority, DailyRecommendation
 from forms import RegistrationForm, LoginForm, PainForm, SymptomsForm, InitialActivityForm, ActivityForm, ActivityPriorityForm
 from extenstions import db, login_manager
@@ -79,7 +79,7 @@ def reginit():
 @bp.route('/login', methods=['GET', 'POST']) 
 def login(): 
     if current_user.is_authenticated: 
-        return redirect(url_for('routes.home')) 
+        return redirect(url_for('routes.account')) 
     form = LoginForm() 
     if form.validate_on_submit(): 
         user = db.session.scalar(sa.select(User).where(User.email == form.email.data)) 
@@ -91,6 +91,130 @@ def login():
         return redirect(url_for('routes.home')) 
     return render_template('login.html', title='Login', form=form)
 
+@bp.route('/account')
+@login_required
+def account():
+    return render_template('account.html', title='Account')
+
+@bp.route('/logout')
+def logout():
+    logout_user()
+    flash('You have been logged out', 'custom-success')
+    return redirect(url_for('home'))
+
+@bp.route("/history")
+@login_required
+def history():
+    pain_am_logs = PainAM.query.filter_by(user_id=current_user.id).order_by(PainAM.date.desc()).all()
+    pain_pm_logs = PainPM.query.filter_by(user_id=current_user.id).order_by(PainPM.date.desc()).all()
+    symptoms_am_logs = SymptomsAM.query.filter_by(user_id=current_user.id).order_by(SymptomsAM.date.desc()).all()
+    symptoms_pm_logs = SymptomsPM.query.filter_by(user_id=current_user.id).order_by(SymptomsPM.date.desc()).all()
+    activity_logs = Activity.query.filter_by(user_id=current_user.id).order_by(Activity.date.desc()).all()
+
+    #Combining Pain Logs
+    combined_pain_logs = []
+    for log in pain_am_logs:
+        combined_pain_logs.append({
+            "date": log.date,
+            "time": "AM",
+            "neck": log.neck,
+            "shoulders": log.shoulders,
+            "upperback": log.upperback,
+            "lowerback": log.lowerback,
+            "chest": log.chest,
+            "hips": log.hips,
+            "arms": log.arms,
+            "elbows": log.elbows,
+            "legs": log.legs,
+            "knees": log.knees,
+            "overall": log.overall
+        })
+
+    for log in pain_pm_logs:
+        combined_pain_logs.append({
+            "date": log.date,
+            "time": "PM",
+            "neck": log.neck,
+            "shoulders": log.shoulders,
+            "upperback": log.upperback,
+            "lowerback": log.lowerback,
+            "chest": log.chest,
+            "hips": log.hips,
+            "arms": log.arms,
+            "elbows": log.elbows,
+            "legs": log.legs,
+            "knees": log.knees,
+            "overall": log.overall
+        })
+
+    #Sorting the pain logs by date and time
+    combined_pain_logs = sorted(combined_pain_logs, key=lambda x: (x["date"], x["time"]), reverse=True)
+
+    #Combining Symptom Logs
+    combined_symptom_logs = []
+    for log in symptoms_am_logs:
+        combined_symptom_logs.append({
+            "date": log.date,
+            "time": "AM",
+            "fatigue": log.fatigue,
+            "stiffness": log.stiffness,
+            "sleepquality": log.sleepquality,
+            "fibrofog": log.fibrofog,
+            "headache": log.headache,
+            "ibs": log.ibs,
+            "dizziness": log.dizziness,
+            "bodytemp": log.bodytemp,
+            "paraesthesia": log.paraesthesia,
+            "allodynia": log.allodynia,
+            "lightsens": log.lightsens,
+            "depression": log.depression,
+            "anxiety": log.anxiety
+        })
+    for log in symptoms_pm_logs:
+        combined_symptom_logs.append({
+            "date": log.date,
+            "time": "PM",
+            "fatigue": log.fatigue,
+            "stiffness": log.stiffness,
+            "sleepquality": log.sleepquality,
+            "fibrofog": log.fibrofog,
+            "headache": log.headache,
+            "ibs": log.ibs,
+            "dizziness": log.dizziness,
+            "bodytemp": log.bodytemp,
+            "paraesthesia": log.paraesthesia,
+            "allodynia": log.allodynia,
+            "lightsens": log.lightsens,
+            "depression": log.depression,
+            "anxiety": log.anxiety
+        })
+
+    #Sorting the symtpom logs by date and time
+    combined_symptom_logs = sorted(combined_symptom_logs, key=lambda x: (x["date"], x["time"]), reverse=True)
+
+    #Activity History Logic
+    activity_display_logs = []
+    for log in activity_logs:
+        activity_display_logs.append({
+            "date": log.date,
+            "shower": log.shower,
+            "cooking": log.cooking,
+            "laundry": log.laundry,
+            "vacuuming": log.vacuuming,
+            "cleaning": log.cleaning,
+            "groceries": log.groceries,
+            "walking": log.walking,
+            "driving": log.driving,
+            "exercise": log.exercise,
+            "studying": log.studying,
+            "resting": log.resting,
+            "socialising": log.socialising,
+            "outing": log.outing
+        })
+
+
+    return render_template(
+        "history.html",combined_pain_logs=combined_pain_logs,combined_symptom_logs=combined_symptom_logs,activity_display_logs=activity_display_logs)
 
 
 @bp.route ('/logAM', methods=['GET', 'POST'])
@@ -132,6 +256,7 @@ def logAM():
                 stiffness=form2.stiffness.data,
                 sleepquality=form2.sleepquality.data,
                 fibrofog=form2.fibrofog.data,
+                headache=form2.headache.data,
                 ibs=form2.ibs.data,
                 dizziness=form2.dizziness.data,
                 bodytemp=form2.bodytemp.data,
@@ -202,6 +327,7 @@ def logPM():
                 fatigue=form2.fatigue.data,
                 stiffness=form2.stiffness.data,
                 sleepquality=form2.sleepquality.data,
+                headache=form2.headache.data,
                 fibrofog=form2.fibrofog.data,
                 ibs=form2.ibs.data,
                 dizziness=form2.dizziness.data,

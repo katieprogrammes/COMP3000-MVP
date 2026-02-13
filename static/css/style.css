@@ -1,6 +1,7 @@
 .title,
 .subtitle,
-.subheading {
+.subheading,
+.historytitle {
     text-align: center;
     padding-top: 20px;
 }
@@ -83,6 +84,64 @@
 .registerbutton {
     text-align: center;
 }
+.accbtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: pink;
+    text-decoration: none;
+    font-weight: 800px;
+    color: black;
+    border-radius: 15px;
+    width: 25%;
+    text-align: center;
+}
+.paintable th,
+.paintable td {
+    border: 1px solid black;
+    width: 90px;
+    text-align: center;
+}
+.symptomtable th,
+.symptomtable td {
+    border: 1px solid black;
+    width: 90px;
+    text-align: center;
+}
+
+.pain-cell {
+    color: #000;
+}
+
+.level-0, .level-1, .level-2, .level-3 {
+    background-color: rgb(60, 190, 60);
+}
+
+.level-4, .level-5, .level-6, .level-7 {
+    background-color: rgb(255, 255, 98);
+}
+.level-8, .level-9, .level-10 {
+    background-color: rgb(255, 78, 78);
+}
+.activity-cell {
+    color: #000;
+}
+.level-0 {
+    background-color: rgb(153, 153, 153);
+}
+.level-1, .level-2, .level-3 {
+    background-color: rgb(60, 190, 60);
+}
+
+.level-4, .level-5, .level-6, .level-7 {
+    background-color: rgb(255, 255, 98);
+}
+.level-8, .level-9, .level-10 {
+    background-color: rgb(255, 78, 78);
+}
+
 .activitybtm {
     display: flex;
     justify-content: center;

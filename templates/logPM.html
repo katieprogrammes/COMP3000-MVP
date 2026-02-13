@@ -259,8 +259,8 @@
                     {% endfor %}
                 </div>
                 <div class="mb-3">
-                    <h5><label class="form-label">{{ form2.headaches.label }}</label></h5>
-                    {% for subfield in form2.headaches %}
+                    <h5><label class="form-label">{{ form2.headache.label }}</label></h5>
+                    {% for subfield in form2.headache %}
                         {% set value = subfield._value() %}
                         {{ subfield(class="btn-check") }}
                         {% if value|int == 0 %}

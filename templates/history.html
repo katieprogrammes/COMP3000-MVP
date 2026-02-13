@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="row">
+    <h1 class="title">History</h1>
+</div>
+<div class="row">
+    <ul class="nav nav-tabs" id="historyTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pain-tab" data-bs-toggle="tab" data-bs-target="#pain" type="button" role="tab">
+            Pain
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="symptoms-tab" data-bs-toggle="tab" data-bs-target="#symptoms" type="button" role="tab">
+            Symptoms
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="activities-tab" data-bs-toggle="tab" data-bs-target="#activities" type="button" role="tab">
+            Activities
+            </button>
+        </li>
+    </ul>
+</div>
+<div class="tab-content" id="historyTabsContent">
+
+  <!-- Pain Section -->
+  <div class="tab-pane fade show active" id="pain" role="tabpanel">
+    <h3>Pain History</h3>
+    <table class="paintable">
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Neck</th>
+            <th>Shoulders</th>
+            <th>Upper Back</th>
+            <th>Lower Back</th>
+            <th>Chest</th>
+            <th>Hips</th>
+            <th>Arms</th>
+            <th>Elbows</th>
+            <th>Legs</th>
+            <th>Knees</th>
+            <th>Overall</th>
+        </tr>
+        {% for log in combined_pain_logs %}
+        <tr>
+            <td>{{ log.date }}</td>
+            <td>{{ log.time }}</td>
+            <td class="pain-cell level-{{ log.neck }}">{{ log.neck }}</td>
+            <td class="pain-cell level-{{ log.shoulders }}">{{ log.shoulders }}</td>
+            <td class="pain-cell level-{{ log.upperback }}">{{ log.upperback }}</td>
+            <td class="pain-cell level-{{ log.lowerback }}">{{ log.lowerback }}</td>
+            <td class="pain-cell level-{{ log.chest }}">{{ log.chest }}</td>
+            <td class="pain-cell level-{{ log.hips }}">{{ log.hips }}</td>
+            <td class="pain-cell level-{{ log.arms }}">{{ log.arms }}</td>
+            <td class="pain-cell level-{{ log.elbows }}">{{ log.elbows }}</td>
+            <td class="pain-cell level-{{ log.legs }}">{{ log.legs }}</td>
+            <td class="pain-cell level-{{ log.knees }}">{{ log.knees }}</td>
+            <td class="pain-cell level-{{ log.overall }}">{{ log.overall }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+
+  <!-- Symptoms Section -->
+  <div class="tab-pane fade" id="symptoms" role="tabpanel">
+    <h3 class="historytitle">Symptom History</h3>
+    <h5 class="historytitle">BTR = Body Temperature Regulation</h5>
+    <h5 class="historytitle">H-pain = Headaches / Migraines</h5>
+    <table class="paintable">
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Fatigue</th>
+            <th>Stiffness</th>
+            <th>Sleep</th>
+            <th>Fibro Fog</th>
+            <th>H-Pain</th>
+            <th>IBS</th>
+            <th>Dizziness</th>
+            <th>BTR</th>
+            <th>Touch Sensitivity</th>
+            <th>Allodynia</th>
+            <th>Light Sensitivity</th>
+            <th>Depression</th>
+            <th>Anxiety</th>
+        </tr>
+        {% for log in combined_symptom_logs %}
+        <tr>
+            <td>{{ log.date.strftime("%d-%m") }}</td>
+            <td>{{ log.time }}</td>
+            <td class="pain-cell level-{{ log.fatigue }}">{{ log.fatigue }}</td>
+            <td class="pain-cell level-{{ log.stiffness }}">{{ log.stiffness }}</td>
+            <td class="pain-cell level-{{ log.sleepquality }}">{{ log.sleepquality }}</td>
+            <td class="pain-cell level-{{ log.fibrofog }}">{{ log.fibrofog }}</td>
+            <td class="pain-cell level-{{ log.headache }}">{{ log.headache }}</td>
+            <td class="pain-cell level-{{ log.ibs }}">{{ log.ibs }}</td>
+            <td class="pain-cell level-{{ log.dizziness }}">{{ log.dizziness }}</td>
+            <td class="pain-cell level-{{ log.bodytemp }}">{{ log.bodytemp }}</td>
+            <td class="pain-cell level-{{ log.paraesthesia }}">{{ log.paraesthesia }}</td>
+            <td class="pain-cell level-{{ log.allodynia }}">{{ log.allodynia }}</td>
+            <td class="pain-cell level-{{ log.lightsens }}">{{ log.lightsens }}</td>
+            <td class="pain-cell level-{{ log.depression }}">{{ log.depression }}</td>
+            <td class="pain-cell level-{{ log.anxiety }}">{{ log.anxiety }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+
+  <!-- Activities Section -->
+  <div class="tab-pane fade" id="activities" role="tabpanel">
+    <h3>Activities History</h3>
+    <table class="paintable">
+        <tr>
+            <th>Date</th>
+            <th>Shower</th>
+            <th>Cooking</th>
+            <th>Laundry</th>
+            <th>Vacuuming</th>
+            <th>Cleaning</th>
+            <th>Groceries</th>
+            <th>Walking</th>
+            <th>Driving</th>
+            <th>Exercise</th>
+            <th>Studying</th>
+            <th>Resting</th>
+            <th>Socialising</th>
+            <th>Outing</th>
+        </tr>
+        {% for log in activity_display_logs %}
+        <tr>
+            <td>{{ log.date.strftime("%d-%m") }}</td>
+            <td class="activity-cell level-{{ log.shower }}">{{ log.shower }}</td>
+            <td class="activity-cell level-{{ log.cooking }}">{{ log.cooking }}</td>
+            <td class="activity-cell level-{{ log.laundry }}">{{ log.laundry }}</td>
+            <td class="activity-cell level-{{ log.vacuuming }}">{{ log.vacuuming }}</td>
+            <td class="activity-cell level-{{ log.cleaning }}">{{ log.cleaning }}</td>
+            <td class="activity-cell level-{{ log.groceries }}">{{ log.groceries }}</td>
+            <td class="activity-cell level-{{ log.walking }}">{{ log.walking }}</td>
+            <td class="activity-cell level-{{ log.driving }}">{{ log.driving }}</td>
+            <td class="activity-cell level-{{ log.exercise }}">{{ log.exercise }}</td>
+            <td class="activity-cell level-{{ log.studying }}">{{ log.studying }}</td>
+            <td class="activity-cell level-{{ log.resting }}">{{ log.resting }}</td>
+            <td class="activity-cell level-{{ log.socialising }}">{{ log.socialising }}</td>
+            <td class="activity-cell level-{{ log.outing }}">{{ log.outing }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+</div>
+
+{% endblock %}
