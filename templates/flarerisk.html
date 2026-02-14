@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="row">
+    <h1 class="title">Flare Risk</h1>
+    <div class = "flarerisk">
+        <h4>Your current risk of a flare is: &nbsp;</h4> 
+        <h2> {% if risk_level == "High" %} 
+            <span style="color: red;">High</span> 
+            {% elif risk_level == "Medium" %} 
+            <span style="color: orange;">Medium</span> 
+            {% else %} <span style="color: green;">Low</span> 
+            {% endif %} 
+        </h2>
+    </div>
+</div>
+{% endblock %}

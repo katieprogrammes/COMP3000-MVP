@@ -1,2 +1,3 @@
 migrations/*
 templates/placeholder.html
+flareriskdebug.py

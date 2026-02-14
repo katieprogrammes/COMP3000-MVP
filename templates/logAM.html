@@ -173,9 +173,27 @@
                         {% endif %}
                     {% endfor %}
                 </div>
+                
                 <div class="mb-3">
                     <h5><label class="form-label">{{ form1.overall.label }}</label></h5>
                     {% for subfield in form1.overall %}
+                        {% set value = subfield._value() %}
+                        {{ subfield(class="btn-check") }}
+                        {% if value|int == 0 %}
+                            <label class="btn btn-outline-secondary" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 3 %}
+                            <label class="btn btn-outline-success" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% elif value|int <= 7 %}
+                            <label class="btn btn-outline-warning" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% else %}
+                            <label class="btn btn-outline-danger" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="mb-3">
+                    <h5><label class="form-label">{{ form1.stress.label }}</label></h5>
+                    {% for subfield in form1.stress %}
                         {% set value = subfield._value() %}
                         {{ subfield(class="btn-check") }}
                         {% if value|int == 0 %}

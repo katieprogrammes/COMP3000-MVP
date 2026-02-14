@@ -1,6 +1,7 @@
 import os
 from flask import render_template, Blueprint, url_for, current_app, redirect, flash, request
 from flask_login import current_user, login_user, login_required, logout_user
+from flarerisk import get_flarerisk_for_user
 from models import User, PainAM, SymptomsAM, PainPM, SymptomsPM, Activity, InitialActivity, ActivityPriority, DailyRecommendation
 from forms import RegistrationForm, LoginForm, PainForm, SymptomsForm, InitialActivityForm, ActivityForm, ActivityPriorityForm
 from extenstions import db, login_manager
@@ -15,7 +16,15 @@ def load_user(user_id: str):
 #HOME
 @bp.route ('/')
 def home():
+    
     return render_template('home.html', title='Home')
+
+#Flare Risk
+@bp.route('/flarerisk')
+def flarerisk():
+    score, level = get_flarerisk_for_user(current_user.id)
+    return render_template('flarerisk.html', title='Flare Risk', risk_score=score, risk_level=level)
+
 
 #REGISTRATION PAGE
 @bp.route ('/register', methods=['GET', 'POST'])
@@ -175,7 +184,6 @@ def history():
             "time": "PM",
             "fatigue": log.fatigue,
             "stiffness": log.stiffness,
-            "sleepquality": log.sleepquality,
             "fibrofog": log.fibrofog,
             "headache": log.headache,
             "ibs": log.ibs,
@@ -217,7 +225,7 @@ def history():
 
 
 @bp.route ('/logAM', methods=['GET', 'POST'])
-#@login_required
+@login_required
 def logAM():
     form1 = PainForm()
     form2 = SymptomsForm()
@@ -242,6 +250,7 @@ def logAM():
                 legs=int(form1.legs.data),
                 knees=int(form1.knees.data),
                 overall=int(form1.overall.data),
+                stress=int(form1.stress.data)
             )
 
             # Saving Pain Log to Database
@@ -325,7 +334,6 @@ def logPM():
                 date=form1.date.data,
                 fatigue=form2.fatigue.data,
                 stiffness=form2.stiffness.data,
-                sleepquality=form2.sleepquality.data,
                 headache=form2.headache.data,
                 fibrofog=form2.fibrofog.data,
                 ibs=form2.ibs.data,

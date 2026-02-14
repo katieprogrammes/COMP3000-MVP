@@ -59,6 +59,7 @@ class PainAM(db.Model):
     legs: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     knees: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     overall: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    stress: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
 
     #Place relationships of tables here
 
@@ -77,6 +78,7 @@ class PainPM(db.Model):
     legs: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     knees: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     overall: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
+    stress: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
 
     #Place relationships of tables here
 
@@ -107,7 +109,6 @@ class SymptomsPM(db.Model):
     date: so.Mapped[datetime.date] = so.mapped_column(sa.Date, default=datetime.date.today)
     fatigue: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     stiffness: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
-    sleepquality: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     fibrofog: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     headache: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     ibs: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)

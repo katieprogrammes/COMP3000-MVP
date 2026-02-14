@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    padding-top: 80px;
+    padding-top: 60px;
 }
 
 .dashlog {
@@ -30,6 +30,12 @@
 #dashactivity {
     background-color: violet;
     color: navy;
+}
+.flarerisk {
+    padding-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 .flareup {
     background-color: red;
