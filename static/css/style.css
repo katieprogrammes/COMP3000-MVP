@@ -17,6 +17,9 @@ body {
     background-color: #efe8ff;
     font-family: "Lexend", sans-serif !important;
 }
+li {
+    list-style: none;
+}
 .dashbtn {
     justify-content: center;
     text-align: center;
@@ -180,7 +183,7 @@ body {
     font-weight: 700;
 }
 .flarerisk h1 {
-    font-size: 1000%;
+    font-size: 800%;
     text-align: center;
 }
 .flarequest {
@@ -203,5 +206,33 @@ body {
 .btn-outline-danger {
     font-weight: 700;
     border-width: 2px;
+}
+.activityrecs {
+    padding-top: 20px;
+    text-align: center;
+}
+#accdo h1,
+#acccareful h1,
+#accavoid h1 {
+    font-weight: 700;
+    text-decoration: underline;
+}
+.accrec ul {
+    padding-left: 0;
+    margin-left: 0;
+}
+.accrec li {
+    padding-top: 10px;
+    font-size: 20px;
+    font-weight: 700;
+}
+#accdo {
+    color: darkgreen;
+}
+#acccareful {
+    color: darkorange;
+}
+#accavoid {
+    color: darkred;
 }
 

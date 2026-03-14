@@ -38,8 +38,8 @@ def apply_flare_weighting(activity_lists, risk_level):
         do_list = always_do
 
     #Remove resting from other lists
-    final_careful = [a for a in careful_list if a != "resting"]
-    final_avoid = [a for a in avoid_list  if a != "resting"]
+    final_careful = [a for a in careful_list if a != "Resting"]
+    final_avoid = [a for a in avoid_list  if a != "Resting"]
     return {
         "do": do_list,
         "careful": final_careful,

@@ -29,8 +29,8 @@
     </div>
 </div>
 <div class="row activityrecs">
-    <div class="col">
-        <h2>Activities You Can Do</h2>
+    <div class="col accrec" id="accdo">
+        <h1>Activities You Can Do</h1>
         <ul>
             {% for item in do %}
                 <li>{{ item }}</li>
@@ -39,8 +39,8 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="col">
-        <h2>Activities to Be Careful With</h2>
+    <div class="col accrec" id="acccareful">
+        <h1>Activities to Be Careful With</h1>
         <ul>
             {% for item in careful %}
                 <li>{{ item }}</li>
@@ -49,8 +49,8 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="col">
-        <h2>Activities to Avoid</h2>
+    <div class="col accrec" id="accavoid">
+        <h1>Activities to Avoid</h1>
         <ul>
             {% for item in avoid %}
                 <li>{{ item }}</li>
