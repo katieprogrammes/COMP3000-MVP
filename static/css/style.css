@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+
+
 .title,
 .subtitle,
 .subheading,
@@ -5,22 +9,35 @@
     text-align: center;
     padding-top: 20px;
 }
+.title {
+    font-weight: 800;
+    font-size: 48px;
+}
+body {
+    background-color: #efe8ff;
+    font-family: "Lexend", sans-serif !important;
+}
 .dashbtn {
-    display: flex;
     justify-content: center;
     text-align: center;
-    padding-top: 60px;
+    padding: 60px 0;
 }
 
 .dashlog {
     padding: 25px;
     border-radius: 10px;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 32px;
     text-decoration: none;
 }
+@media (max-width: 576px) {
+    .dashlog {
+        font-size: 30px;
+        padding: 14px;
+    }
+}
 #dasham {
-    background-color: skyblue;
+    background-color: blue;
     color: navy;
 }
 #dashpm {
@@ -31,20 +48,19 @@
     background-color: violet;
     color: navy;
 }
-.flarerisk {
-    padding-top: 20px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+#dashhist {
+    background-color: purple;
+    color: skyblue;
 }
+
 .flareup {
     background-color: red;
     position: fixed;
     bottom: 0px;
     text-align: center;
-    height: 60px;
+    height: 75px;
     border-radius: 10px 10px 0 0;
-    padding-top: 10px;
+    padding-top: 15px;
 }
 .flarebtn {
     color: white;
@@ -104,12 +120,9 @@
     width: 25%;
     text-align: center;
 }
-.paintable th,
-.paintable td,
-.symptomtable th,
-.symptomtable td,
-.activitytable th,
-.activitytable td  {
+.historytable th,
+.historytable td
+ {
     border: 1px solid grey;
     width: 90px;
     text-align: center;
@@ -166,3 +179,27 @@
     font-size: 20px;
     font-weight: 700;
 }
+.flarerisk h1 {
+    font-size: 200px;
+    text-align: center;
+}
+
+.btn-outline-orange {
+    --bs-btn-color: #FFAE42;
+    --bs-btn-border-color: #FFAE42;
+    --bs-btn-hover-bg: #FFAE42;
+    --bs-btn-hover-border-color: #FFAE42;
+    --bs-btn-active-bg: #e89a35;
+    --bs-btn-active-border-color: #e89a35;
+    --bs-btn-hover-color: #000;
+    --bs-btn-active-color: #000;
+    font-weight: 700;
+    border-width: 2px;
+}
+.btn-outline-secondary,
+.btn-outline-success,
+.btn-outline-danger {
+    font-weight: 700;
+    border-width: 2px;
+}
+

@@ -2,22 +2,28 @@
 
 {% block body %}
 <div class="row">
-    <h1 class="title">Welcome to Spoonymyalgia</h1>
-    
-    <div class="row dashbtn">
-        <div class="col">
-            <a href="{{ url_for('routes.logAM') }}" class="dashlog" id="dasham">Log Morning Symptoms</a>
-        </div>
-        <div class="col">
-            <a href="{{ url_for('routes.logPM') }}" class="dashlog" id="dashpm">Log Evening Symptoms</a>
-        </div>
+    <div class="col-12">
+        <h1 class="title">Welcome to Spoonymyalgia</h1>
     </div>
-    <div class="row dashbtn">
-        <div class="col">
-            <a href="{{ url_for('routes.activities') }}" class="dashlog" id="dashactivity">Log Today's Activities</a>
-        </div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-6 dashbtn">
+        <a href="{{ url_for('routes.logAM') }}" class="dashlog" id="dasham">Log Morning Symptoms</a>
     </div>
-    <div class="flareup">
+    <div class="col-12 col-md-6 dashbtn">
+        <a href="{{ url_for('routes.logPM') }}" class="dashlog" id="dashpm">Log Evening Symptoms</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-6 dashbtn">
+        <a href="{{ url_for('routes.activities') }}" class="dashlog" id="dashactivity">Log Today's Activities</a>
+    </div>
+    <div class="col-12 col-md-6 dashbtn">
+        <a href="{{ url_for('routes.history') }}" class="dashlog" id="dashhist">View History</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 flareup">
         <a link href="#" class="flarebtn">FLARE UP</a>
     </div>
 </div>

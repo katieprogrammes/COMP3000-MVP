@@ -2,16 +2,19 @@
 
 {% block body %}
 <div class="row">
-    <h1 class="title">Flare Risk</h1>
-    <div class = "flarerisk">
-        <h4>Your current risk of a flare is: &nbsp;</h4> 
-        <h2> {% if risk_level == "High" %} 
-            <span style="color: red;">High</span> 
-            {% elif risk_level == "Medium" %} 
-            <span style="color: orange;">Medium</span> 
-            {% else %} <span style="color: green;">Low</span> 
-            {% endif %} 
-        </h2>
-    </div>
+    <h1 class="title">Your current risk of a flare is:</h1>
 </div>
+<div class = "flarerisk">
+    <h1 class> {% if risk_level == "High" %} 
+        <span style="color: red;">High</span> 
+        {% elif risk_level == "Medium" %} 
+        <span style="color: orange;">Medium</span> 
+        {% else %} <span style="color: green;">Low</span> 
+        {% endif %} 
+    </h1>
+</div>
+<div class="flarequest">
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#revealText"> How Can I Reduce This? </button>
+</div>
+<div class="collapse mt-3" id="revealText"> <div class="card card-body"> Prioritise Rest</div> </div>
 {% endblock %}
