@@ -131,36 +131,18 @@ li {
     text-align: center;
 }
 
-
-.pain-cell {
-    color: #000;
-}
-
-.level-0, .level-1, .level-2, .level-3 {
-    background-color: rgb(60, 190, 60);
-}
-
-.level-4, .level-5, .level-6, .level-7 {
-    background-color: rgb(255, 255, 98);
-}
-.level-8, .level-9, .level-10 {
-    background-color: rgb(255, 78, 78);
-}
-.activity-cell {
-    color: #000;
-}
 .level-0 {
-    background-color: rgb(153, 153, 153);
+    background-color: #9E9E9E !important;
 }
 .level-1, .level-2, .level-3 {
-    background-color: rgb(60, 190, 60);
+    background-color: #4CAF50 !important;
 }
 
 .level-4, .level-5, .level-6, .level-7 {
-    background-color: rgb(255, 255, 98);
+    background-color: #FFC107 !important;
 }
 .level-8, .level-9, .level-10 {
-    background-color: rgb(255, 78, 78);
+    background-color: #E53935 !important;
 }
 
 .activitybtm {
@@ -175,6 +157,7 @@ li {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    flex-wrap: wrap;
     padding: 10px;
 
 }

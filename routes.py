@@ -93,7 +93,7 @@ def reginit():
         flash('Congratulations, you are now a registered user!', 'success')
         return redirect(url_for('routes.home'))
 
-    return render_template('reginfo.html', title='Register', form=form)
+    return render_template('reginfo.html', title='Rate Activities', form=form)
 
 
 @bp.route('/login', methods=['GET', 'POST']) 
@@ -232,8 +232,7 @@ def history():
         })
 
 
-    return render_template(
-        "history.html",combined_pain_logs=combined_pain_logs,combined_symptom_logs=combined_symptom_logs,activity_display_logs=activity_display_logs)
+    return render_template("history.html",combined_pain_logs=combined_pain_logs,combined_symptom_logs=combined_symptom_logs,activity_display_logs=activity_display_logs, title="Your History")
 
 
 @bp.route ('/logAM', methods=['GET', 'POST'])
@@ -367,16 +366,6 @@ def logPM():
         return redirect(url_for("routes.home"))
     return render_template('logPM.html', title='Evening Log', form1=form1, form2=form2)
 
-@bp.route ('/symptoms', methods=['GET', 'POST'])
-@login_required
-def symptoms():
-    form = SymptomsForm()
-    
-
-    return render_template('symptoms.html', title='Symptoms', form=form)
-
-
-
 
 #DAILY ACTIVITY ROUTE
 @bp.route('/activity', methods=['GET', 'POST']) 
@@ -413,19 +402,14 @@ def activities():
 
             flash('Activity record saved successfully', 'success')
         return redirect(url_for("routes.home"))
-    return render_template('activity.html', title='Activities', form=form)
+    return render_template('activity.html', title='Activity Log', form=form)
 
 @bp.route("/activity-recommendations")
 @login_required
 def activity_recommendations():
     recs = get_activity_recommendations(current_user.id)
 
-    return render_template(
-        "activity_recommendations.html",
-        do=recs["do"],
-        careful=recs["careful"],
-        avoid=recs["avoid"],
-        not_applicable=recs["not_applicable"]
+    return render_template("activity_recommendations.html", do=recs["do"], careful=recs["careful"], avoid=recs["avoid"], not_applicable=recs["not_applicable"]
     )
 @bp.route('/edit-activities', methods=['GET', 'POST'])
 @login_required
@@ -468,7 +452,7 @@ def edit_activities():
         flash("Your activity difficulty settings have been updated.", "success")
         return redirect(url_for('routes.account'))
 
-    return render_template('editreginfo.html', form=form)
+    return render_template('editreginfo.html', form=form title='Change Activity Difficulty')
 
 
 

@@ -2,9 +2,13 @@
 
 {% block body %}
 <div class="row">
-    <h1 class="title">Logging - Evening</h1>
-    <h2 class="subtitle">Please Log your Current Pain and Symptoms</h2>
-    <h4 class="subheading">Rate from 1 (Fine) to 10 (Severe) and 0 if Non Applicable</h4>
+    <div class="col-12 text-center">
+        <h1 class="title">Logging - Evening</h1>
+        <h2 class="subtitle">Please Log your Current Pain and Symptoms</h2>
+        <h4 class="subheading">Rate from 1 (Fine) to 10 (Severe) and 0 if Non Applicable</h4>
+    </div>
+</div>
+<div class="row">
     <form method="POST">
         {{ form1.hidden_tag() }}
         <div class="mb-3">
