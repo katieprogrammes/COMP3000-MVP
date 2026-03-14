@@ -2,6 +2,8 @@ import os
 from flask import render_template, Blueprint, url_for, current_app, redirect, flash, request
 from flask_login import current_user, login_user, login_required, logout_user
 from flarerisk import get_flarerisk_for_user
+from activitytolerance import get_activity_recommendations
+from activityreccs import apply_flare_weighting
 from models import User, PainAM, SymptomsAM, PainPM, SymptomsPM, Activity, InitialActivity, ActivityPriority, DailyRecommendation
 from forms import RegistrationForm, LoginForm, PainForm, SymptomsForm, InitialActivityForm, ActivityForm, ActivityPriorityForm
 from extenstions import db, login_manager
@@ -23,7 +25,20 @@ def home():
 @bp.route('/flarerisk')
 def flarerisk():
     score, level = get_flarerisk_for_user(current_user.id)
-    return render_template('flarerisk.html', title='Flare Risk', risk_score=score, risk_level=level)
+    base_recs = get_activity_recommendations(current_user.id)
+    weighted_recs = apply_flare_weighting(base_recs, level)
+    return render_template(
+        'flarerisk.html',
+        title='Flare Risk',
+        risk_score=score,
+        risk_level=level,
+        do=weighted_recs["do"],
+        careful=weighted_recs["careful"],
+        avoid=weighted_recs["avoid"],
+        not_applicable=weighted_recs["not_applicable"]
+    )
+
+
 
 
 #REGISTRATION PAGE
@@ -402,6 +417,20 @@ def activities():
             flash('Activity record saved successfully', 'success')
         return redirect(url_for("routes.home"))
     return render_template('activity.html', title='Activities', form=form)
+
+@bp.route("/activity-recommendations")
+@login_required
+def activity_recommendations():
+    recs = get_activity_recommendations(current_user.id)
+
+    return render_template(
+        "activity_recommendations.html",
+        do=recs["do"],
+        careful=recs["careful"],
+        avoid=recs["avoid"],
+        not_applicable=recs["not_applicable"]
+    )
+
 
 
 #PLACEHOLDER ROUTE

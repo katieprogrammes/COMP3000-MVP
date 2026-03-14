@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="row">
+    <h1>Your Activity Recommendations</h1>
+
+<h2>Activities You Can Do</h2>
+<ul>
+    {% for item in do %}
+        <li>{{ item }}</li>
+    {% else %}
+        <li>No activities in this category.</li>
+    {% endfor %}
+</ul>
+
+<h2>Activities to Be Careful With</h2>
+<ul>
+    {% for item in careful %}
+        <li>{{ item }}</li>
+    {% else %}
+        <li>No activities in this category.</li>
+    {% endfor %}
+</ul>
+
+<h2>Activities to Avoid</h2>
+<ul>
+    {% for item in avoid %}
+        <li>{{ item }}</li>
+    {% else %}
+        <li>No activities in this category.</li>
+    {% endfor %}
+</ul>
+
+<h2>Not Applicable</h2>
+<ul>
+    {% for item in not_applicable %}
+        <li>{{ item }}</li>
+    {% else %}
+        <li>No activities in this category.</li>
+    {% endfor %}
+</ul>
+</div>
+{% endblock %}

@@ -2,19 +2,62 @@
 
 {% block body %}
 <div class="row">
-    <h1 class="title">Your current risk of a flare is:</h1>
+    <div class="col-12">
+        <h1 class="title">Your current risk of a flare is:</h1>
+    </div>
 </div>
-<div class = "flarerisk">
-    <h1 class> {% if risk_level == "High" %} 
-        <span style="color: red;">High</span> 
-        {% elif risk_level == "Medium" %} 
-        <span style="color: orange;">Medium</span> 
-        {% else %} <span style="color: green;">Low</span> 
-        {% endif %} 
-    </h1>
+<div class = "row flarerisk">
+    <div class="col-12">
+        <h1> {% if risk_level == "High" %} 
+            <span style="color: red;">High</span> 
+            {% elif risk_level == "Medium" %} 
+            <span style="color: orange;">Medium</span> 
+            {% else %} 
+            <span style="color: green;">Low</span> 
+            {% endif %} 
+        </h1>
+    </div>
 </div>
-<div class="flarequest">
-<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#revealText"> How Can I Reduce This? </button>
+<div class="row flarequest">
+    <div class="col-12 text-center">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#revealText"> How Can I Reduce This? </button>
+        <div class="collapse mt-3 text-center" id="revealText"> 
+            <div class="card card-body"> 
+                Prioritise Rest
+            </div> 
+        </div>
+    </div>
 </div>
-<div class="collapse mt-3" id="revealText"> <div class="card card-body"> Prioritise Rest</div> </div>
+<div class="row activityrecs">
+    <div class="col">
+        <h2>Activities You Can Do</h2>
+        <ul>
+            {% for item in do %}
+                <li>{{ item }}</li>
+            {% else %}
+                <li>No activities in this category.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col">
+        <h2>Activities to Be Careful With</h2>
+        <ul>
+            {% for item in careful %}
+                <li>{{ item }}</li>
+            {% else %}
+                <li>No activities in this category.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col">
+        <h2>Activities to Avoid</h2>
+        <ul>
+            {% for item in avoid %}
+                <li>{{ item }}</li>
+            {% else %}
+                <li>No activities in this category.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}
