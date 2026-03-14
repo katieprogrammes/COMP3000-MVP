@@ -2,42 +2,57 @@
 
 {% block body %}
 <div class="row">
-    <h1>Your Activity Recommendations</h1>
+    <div class="col">
+        <h1 class="title">Your Activity Difficulty Levels</h1>
+    </div>
+</div>
 
-<h2>Activities You Can Do</h2>
-<ul>
-    {% for item in do %}
-        <li>{{ item }}</li>
-    {% else %}
-        <li>No activities in this category.</li>
-    {% endfor %}
-</ul>
 
-<h2>Activities to Be Careful With</h2>
-<ul>
-    {% for item in careful %}
-        <li>{{ item }}</li>
-    {% else %}
-        <li>No activities in this category.</li>
-    {% endfor %}
-</ul>
-
-<h2>Activities to Avoid</h2>
-<ul>
-    {% for item in avoid %}
-        <li>{{ item }}</li>
-    {% else %}
-        <li>No activities in this category.</li>
-    {% endfor %}
-</ul>
-
-<h2>Not Applicable</h2>
-<ul>
-    {% for item in not_applicable %}
-        <li>{{ item }}</li>
-    {% else %}
-        <li>No activities in this category.</li>
-    {% endfor %}
-</ul>
+<div class="row activityrecs">
+    <div class="col accrec" id="actdo">
+        <h2>Activities You Can Do</h2>
+        <ul>
+            {% for item in do %}
+                <li>{{ item }}</li>
+            {% else %}
+                <li>No activities in this category.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col accrec" id="actcareful">
+        <h2>Activities to Be Careful With</h2>
+        <ul>
+            {% for item in careful %}
+                <li>{{ item }}</li>
+            {% else %}
+                <li>No activities in this category.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col accrec" id="actavoid">
+        <h2>Activities to Avoid</h2>
+        <ul>
+            {% for item in avoid %}
+                <li>{{ item }}</li>
+            {% else %}
+                <li>No activities in this category.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col accrec" id="actna">
+        <h2>Not Applicable</h2>
+        <ul>
+            {% for item in not_applicable %}
+                <li>{{ item }}</li>
+            {% else %}
+                <li>No activities in this category.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="row maed">
+    <div class="col-12 mainedit">
+         <a href="{{ url_for('routes.edit_activities') }}" class="editact">Edit</a>
+    </div>
 </div>
 {% endblock %}

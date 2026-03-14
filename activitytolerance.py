@@ -39,7 +39,7 @@ def get_activity_recommendations(user_id):
             not_applicable.append(activity)
         elif rating <= 3:
             do_list.append(activity)
-        elif rating <= 6:
+        elif rating <= 7:
             careful_list.append(activity)
         else:
             avoid_list.append(activity)

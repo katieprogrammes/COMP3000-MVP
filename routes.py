@@ -38,9 +38,6 @@ def flarerisk():
         not_applicable=weighted_recs["not_applicable"]
     )
 
-
-
-
 #REGISTRATION PAGE
 @bp.route ('/register', methods=['GET', 'POST'])
 def register():
@@ -430,6 +427,48 @@ def activity_recommendations():
         avoid=recs["avoid"],
         not_applicable=recs["not_applicable"]
     )
+@bp.route('/edit-activities', methods=['GET', 'POST'])
+@login_required
+def edit_activities():
+    initial = InitialActivity.query.filter_by(user_id=current_user.id).first()
+
+    # Prefill form with existing values
+    form = InitialActivityForm(
+        shower=initial.shower,
+        cooking=initial.cooking,
+        laundry=initial.laundry,
+        vacuuming=initial.vacuuming,
+        cleaning=initial.cleaning,
+        groceries=initial.groceries,
+        walking=initial.walking,
+        driving=initial.driving,
+        exercise=initial.exercise,
+        studying=initial.studying,
+        socialising=initial.socialising,
+        outing=initial.outing
+    )
+
+    if form.validate_on_submit():
+        #Update db with new values
+        initial.shower = form.shower.data
+        initial.cooking = form.cooking.data
+        initial.laundry = form.laundry.data
+        initial.vacuuming = form.vacuuming.data
+        initial.cleaning = form.cleaning.data
+        initial.groceries = form.groceries.data
+        initial.walking = form.walking.data
+        initial.driving = form.driving.data
+        initial.exercise = form.exercise.data
+        initial.studying = form.studying.data
+        initial.socialising = form.socialising.data
+        initial.outing = form.outing.data
+
+        db.session.commit()
+
+        flash("Your activity difficulty settings have been updated.", "success")
+        return redirect(url_for('routes.account'))
+
+    return render_template('editreginfo.html', form=form)
 
 
 
