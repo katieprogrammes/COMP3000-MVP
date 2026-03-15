@@ -23,6 +23,7 @@ def home():
 
 #Flare Risk
 @bp.route('/flarerisk')
+@login_required
 def flarerisk():
     score, level = get_flarerisk_for_user(current_user.id)
     base_recs = get_activity_recommendations(current_user.id)
@@ -452,7 +453,7 @@ def edit_activities():
         flash("Your activity difficulty settings have been updated.", "success")
         return redirect(url_for('routes.account'))
 
-    return render_template('editreginfo.html', form=form title='Change Activity Difficulty')
+    return render_template('editreginfo.html', form=form, title='Change Activity Difficulty')
 
 
 

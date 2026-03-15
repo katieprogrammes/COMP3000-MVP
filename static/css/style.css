@@ -23,9 +23,8 @@ li {
 .dashbtn {
     justify-content: center;
     text-align: center;
-    padding: 60px 0;
+    padding: 40px 0;
 }
-
 .dashlog {
     padding: 25px;
     border-radius: 10px;
@@ -41,11 +40,11 @@ li {
 }
 #dasham {
     background-color: blue;
-    color: navy;
+    color: lightblue;
 }
 #dashpm {
     background-color: navy;
-    color: skyblue;
+    color: lightblue;
 }
 #dashactivity {
     background-color: violet;
@@ -53,9 +52,13 @@ li {
 }
 #dashhist {
     background-color: purple;
-    color: skyblue;
+    color: lightblue;
 }
 
+#homeflare {
+    background-color: darkred;
+    color: lightblue;
+}
 .flareup {
     background-color: red;
     position: fixed;
